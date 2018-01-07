@@ -1,5 +1,3 @@
-//ROUVRIR LA DB
-//FERMER LA DB
 
 $(document).ready(function(){
     let fileBtn = $('#sendFiles');
@@ -7,6 +5,27 @@ $(document).ready(function(){
     let disconnect = $('.disconnect');
     let vStarter = $('#vStarter');
     peer = window.peer;
+//////////////////****************ESTABLISH LOCAL DATABASE****************////////////////////
+    db = window.db;
+    db.version(2).stores({
+        friends: 'name',
+        todolist: 'note'
+    });
+    db.open().catch(function(err){console.log(err)})
+    db.friends.add('user1')
+    db.friends.add('user4')
+    db.friends.add('user3')
+    db.friends.add('user2')
+    db.friends.each((user)=>{
+        return user.name
+    }).then((realname)=>{
+        var option = document.createElement('option');
+        option.setAttribute('value', realname);
+        option.innerText = realname;
+        $('select').append(option);
+    }).catch((err)=>{
+        console.log(err)
+    });
 //////////////////****************ESTABLISH CONNECTION****************////////////////////
     dataConnect.click(function(){
         $('.disconnect').show();

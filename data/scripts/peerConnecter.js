@@ -16,8 +16,10 @@ selfId.first((item)=>{
         if(dbFirstItem === ""){
             name = prompt("please enter your user name", "")
             db.friends.add({name})
+            db.close()
             return name
         }else{
+            db.close()
             return name = dbFirstItem;
         }
     })
