@@ -1,6 +1,7 @@
 let db = window.db = new Dexie('localmem')
 db.version(1).stores({
-    friends: 'name'
+    friends: 'name',
+    todolist: 'note'
 });
 db.open().catch(function(err){console.log(err)})
 console.log(db.friends)
@@ -16,10 +17,8 @@ selfId.first((item)=>{
         if(dbFirstItem === ""){
             name = prompt("please enter your user name", "")
             db.friends.add({name})
-            db.close()
             return name
         }else{
-            db.close()
             return name = dbFirstItem;
         }
     })

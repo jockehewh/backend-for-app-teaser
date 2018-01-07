@@ -7,11 +7,7 @@ $(document).ready(function(){
     peer = window.peer;
 //////////////////****************ESTABLISH LOCAL DATABASE****************////////////////////
     db = window.db;
-    db.version(2).stores({
-        friends: 'name',
-        todolist: 'note'
-    });
-    db.open().catch(function(err){console.log(err)})
+   
     db.friends.add('user1')
     db.friends.add('user4')
     db.friends.add('user3')
