@@ -22,6 +22,7 @@ $(document).ready(function(){
         $('.disconnect').show();
         var distantId = $('#distant_id').val();
         var conn = peer.connect(distantId);
+        db.friends.add({name: distantId});
         //AJOUTER DATAS
         conn.on('open', function(){
             $('.peer_selector').hide();
