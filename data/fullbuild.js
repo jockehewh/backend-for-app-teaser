@@ -7,19 +7,14 @@ $(document).ready(function(){
     peer = window.peer;
 //////////////////****************ESTABLISH LOCAL DATABASE****************////////////////////
     db = window.db;
-   
-    db.friends.add({name: 'user1'})
-    db.friends.add({name: 'user4'})
-    db.friends.add({name: 'user3'})
-    db.friends.add({name: 'user2'})
-    db.friends.each((user)=>{
-        return user.name
-    }).then((realname)=>{
+    collection = window.collection = db.friends.toCollection();
+
+    collection.each(function(user){
         var option = document.createElement('option');
-        option.setAttribute('value', realname);
-        option.innerText = realname;
+        option.setAttribute('value', user.name);
+        option.innerText = user.name;
         $('select').append(option);
-    }).catch((err)=>{
+    }).catch(function(err){
         console.log(err)
     });
 //////////////////****************ESTABLISH CONNECTION****************////////////////////
