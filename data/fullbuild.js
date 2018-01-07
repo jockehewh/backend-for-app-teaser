@@ -8,10 +8,10 @@ $(document).ready(function(){
 //////////////////****************ESTABLISH LOCAL DATABASE****************////////////////////
     db = window.db;
    
-    db.friends.add('user1')
-    db.friends.add('user4')
-    db.friends.add('user3')
-    db.friends.add('user2')
+    db.friends.add({name: 'user1'})
+    db.friends.add({name: 'user4'})
+    db.friends.add({name: 'user3'})
+    db.friends.add({name: 'user2'})
     db.friends.each((user)=>{
         return user.name
     }).then((realname)=>{
