@@ -30,9 +30,8 @@ $(document).ready(function(){
             })
             fileBtn.change(function(){
                 console.log(this.files[0])
-                $('.files_element').append(`<p>${this.files[0].name}, size: ${this.files[0].size/1000} Ko</p>`)
+                //$('.files_element').append(`<p>${this.files[0].name}, size: ${this.files[0].size/1000} Ko</p>`)
                 conn.send(this.files[0])
-                conn.send(this.files[0].name)
             })
         })
         vStarter.click(function(){
