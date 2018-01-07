@@ -25,6 +25,9 @@ $(document).ready(function(){
                 li.innerHTML = `<p>you: ${message}</p>`
                 $('#messages').append(li);
             })
+            $('#fileSend').click(function(){
+                fileBtn.click();
+            })
             fileBtn.change(function(){
                 console.log(this.files[0])
                 $('.files_element').append(`<p>${this.files[0].name}, size: ${this.files[0].size/1000} Ko</p>`)

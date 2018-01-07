@@ -45,6 +45,7 @@ let peerconf = {
 setTimeout(function(){
     let peer = window.peer = new Peer(name, peerconf);
     peer.on('open', function(){
+        $('.local_name').text(peer.id);
         $('.status').css("background-color", "green");
     })
 },700)

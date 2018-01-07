@@ -11,6 +11,13 @@
     top:0;
     right:0;
 }
+.local_name{
+    background-color:black;
+    color: white;
+    position: absolute;
+    top:0;
+    left:0;
+}
 .peer_selector{}
 #distant_id{}
 #data_connect{}
@@ -21,10 +28,11 @@
     display:none;
 }
 .messagerie_text{
-    height:100vh;
+    height:90vh;
 }
 .messagerie_text div{
     height:80%;
+    overflow-y: scroll;
 }
 #messages{}
 .you{
