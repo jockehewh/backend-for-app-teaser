@@ -1,34 +1,8 @@
-
-body{
+.body{
     max-width: 700px;
 }
-.is_main{
-    display:none;
-}
-.is_not_main{
-    display:block;
-}
-#video-container{
-    display:none;
-}
-.chat_box{
-
-}
-.chat_head{
-
-}
-.drop_box{
-    height: 200px;
-}
-.presence{
-    display: none;
-}
-.you{
-    color:green;
-}
-.theirs{
-    color: blue;
-}
+.is_main{}
+.data_module{}
 .status{
     width:20px;
     height: 20px;
@@ -37,24 +11,29 @@ body{
     top:0;
     right:0;
 }
-.peer_selector{
-    
-}
+.peer_selector{}
+#distant_id{}
+#data_connect{}
 .files_element{
     display:none;
 }
+#sendFiles{}
 .messagerie_text{
     height:100vh;
 }
 .messagerie_text div{
     height:80%;
 }
-#disconnect_btn{
-    position: absolute;
-    top:0;
-    right:0;
-    display:none;
+#messages{}
+.you{
+    color:green;
 }
+.theirs{
+    color: blue;
+}
+#text{}
+#send{}
+#vStarter{}
 .my_video{
     max-width:150px;
     max-height:200px;
@@ -69,31 +48,8 @@ body{
     top: 50px;
     left:0;
 }
-ul li{
-    list-style-type: none;
-    display: inline;
-}
+.video_module{}
+.video{}
 .disconnect{
     display:none;
-}
-.modele_module{
-    height: 480px;
-    width: 360px;
-    display: flex;
-    border-radius: 25px;
-    border: solid black 1px;
-    align-items: center;
-    justify-content: center;
-}
-.selectors ul{
-}
-#show{
-    border:solid black 1px;
-    display: flex;
-    min-height: 350px;
-    width: 63%;
-    flex-direction: column;
-}
-.show ul li{
-    display:flex;
 }
