@@ -26,7 +26,9 @@ httpServer.listen(function(){
                 <title>App et teaser</title>
             </head>
             <body>
+            <div class="is_main">
             ${data}
+            </div>
             <button class="disconnect">disconnect</button>
             <script src="./scripts/peerConnecter.js"></script>
             <script src="fullbuild.js"></script>
