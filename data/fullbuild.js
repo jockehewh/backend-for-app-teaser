@@ -100,7 +100,7 @@ setTimeout(function(){
                 img.src = dataUrl;
                 a.appendChild(img)
                 li.appendChild(a);
-                $('.messages').append(li)
+                $('#messages').append(li)
             }
             if(typeof data === 'string'){
                 if(data === 'ping'){
@@ -129,4 +129,4 @@ setTimeout(function(){
                 })
         }
     })
-    },3200);
+    },1200);
