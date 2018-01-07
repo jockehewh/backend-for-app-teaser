@@ -92,15 +92,13 @@ setTimeout(function(){
                 var bloeb = new Blob([data]);
                 var dataUrl = URL.createObjectURL(bloeb)
                 let img = document.createElement('img');
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = dataUrl;
                 img.src = dataUrl;
-                $('.files_element').append(img)
-                setTimeout(function(){
-                    var a = document.createElement('a');
-                    a.href = dataUrl;
-                    a.download = window.fileName;
-                    a.innerText = window.fileName;
-                    $('.files_element').append(a);
-                }, 2000)
+                a.appendChild(img)
+                li.appendChild(a);
+                $('.messages').append(li)
             }
             if(typeof data === 'string'){
                 if(data === 'ping'){
