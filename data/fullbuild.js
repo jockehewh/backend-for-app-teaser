@@ -17,6 +17,18 @@ $(document).ready(function(){
     }).catch(function(err){
         console.log(err)
     });
+    var minigame = function (){
+        var gamebtn = document.querySelector('.game_btn');
+        var yourScore = document.querySelector('#yoScore');
+        var theirScore = document.querySelector('#tyScore');
+        var meCount = 0;
+        var theyCount = 0;
+        gamebtn.addEventListener('click',() => {
+            meCount++;
+            yourScore.innerText = meCount;
+        })
+        conn.send(meCount);
+    }
 //////////////////****************ESTABLISH CONNECTION****************////////////////////
     dataConnect.click(function(){
         $('.disconnect').show();
