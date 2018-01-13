@@ -125,6 +125,9 @@ setTimeout(function(){
                 li.appendChild(a);
                 $('#messages').append(li)
             }
+            if(data === 'number'){
+                
+            }
             if(typeof data === 'string'){
                 if(data === 'ping'){
                     conn.send('pong');
