@@ -7,7 +7,7 @@ const archiver = require('archiver');
 
 var httpServer = http.createServer();
 
-const wss = new ws.Server({httpServer, port:8986})
+const wss = new ws.Server({httpServer, port:3002})
 
 httpServer.listen(function(){
     wss.on('connection', function(id){
@@ -29,7 +29,6 @@ httpServer.listen(function(){
             <div class="is_main">
             ${data}
             </div>
-            <button class="disconnect">disconnect</button>
             <script src="./scripts/peerConnecter.js"></script>
             <script src="fullbuild.js"></script>
             </body>
@@ -40,8 +39,6 @@ httpServer.listen(function(){
               console.log(archive.pointer()+" total bytes")
               fs.readFile(__dirname+"/data.zip", function(err, data){
                 if(err){console.log(err)}
-                
-                console.log(data);
                 id.send(data)
               })
             });
