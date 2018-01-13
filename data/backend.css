@@ -1,0 +1,55 @@
+.body{
+    max-width: 700px;
+}
+.is_main{}
+.data_module{}
+.status{
+    width:20px;
+    height: 20px;
+    background-color: red;
+    position: absolute;
+    top:0;
+    right:0;
+}
+.peer_selector{}
+#distant_id{}
+#data_connect{}
+.files_element{
+    display:none;
+}
+#sendFiles{}
+.messagerie_text{
+    height:100vh;
+}
+.messagerie_text div{
+    height:80%;
+}
+#messages{}
+.you{
+    color:green;
+}
+.theirs{
+    color: blue;
+}
+#text{}
+#send{}
+#vStarter{}
+.my_video{
+    max-width:150px;
+    max-height:200px;
+    position: fixed;
+    top: 400px;
+    left:50px;
+}
+.their_video{
+    max-width:720px;
+    max-height:1280px;
+    position: fixed;
+    top: 50px;
+    left:0;
+}
+.video_module{}
+.video{}
+.disconnect{
+    display:none;
+}
