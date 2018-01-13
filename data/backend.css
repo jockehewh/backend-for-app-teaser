@@ -54,3 +54,36 @@
 .disconnect{
     display:none;
 }
+.mg_module{
+
+}
+.todo_module{
+
+}
+.game_screen{
+    display: grid;
+    height: 100%;
+    width:100%;
+    grid-template: repeat(4, 1fr) / repeat( 1, 1fr);
+    grid-auto-flow: dense;
+}
+#score_bar{
+    grid-column: 1;
+    grid-row: 1;
+    margin: auto;
+    user-select: none;
+}
+#yoScore{}
+#tyScore{}
+.game_box{
+    grid-column: 1;
+    grid-row: 2/5;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.game_btn{
+    background-color: red;
+    padding: 100px 87px;
+    border-radius: 100%;
+}
