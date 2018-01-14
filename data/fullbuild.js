@@ -76,7 +76,17 @@ $(document).ready(function(){
             conn.send('game?');
             conn.on('data', function(data){
                 if(data === 'yes‼'){
+                    $('.mg_module').show();
+                    $('.game_box').show();
                     conn.send('yes‼');
+                }
+                if(data === 'end‼'){
+                    $('.game_box').hide();
+                    if(!getWinner(meCount, theyCount)){
+                        yourScore.innerText = 'You win‼'
+                    }else{
+                        yourScore.innerText = 'You Loose‼'
+                    }
                 }
                 if(typeof data === 'number'){
                     if(data === 0){
@@ -85,10 +95,18 @@ $(document).ready(function(){
                             meCount++;
                             yourScore.innerText = meCount;
                             conn.send(meCount);
+                            if(meCount === 22){
+                                conn.send('end‼')
+                                $('.game_box').hide();
+                                if(!getWinner(meCount, theyCount)){
+                                    yourScore.innerText = 'You win‼'
+                                }else{
+                                    yourScore.innerText = 'You Loose‼'
+                                }
+                            }
                         })
                     }
                     if(data <= 22){
-                        console.log(data+"RREEEECCUU")
                         theyCount = data;
                         theirScore.innerText = data;
                     }
@@ -116,7 +134,9 @@ $(document).ready(function(){
     var meCount = 0;
     var theyCount = 0;
 
-    
+function getWinner(localScore, distantScore){
+    return localScore < distantScore;
+}
 
 function pseudoNetworkConditionSizedVideo(quality){
     navigator.getUserMedia({audio: true, video: quality}, function(stream){
@@ -151,14 +171,22 @@ setTimeout(function(){
             }
             if(typeof data === 'number'){
                 if(data === 0){
-                    console.log('START A GAME')
                     gamebtn.addEventListener('click',function(){
                         meCount++;
                         yourScore.innerText = meCount;
                         conn.send(meCount);
+                        if(meCount === 22){
+                            conn.send('end‼')
+                            $('.game_box').hide();
+                            if(!getWinner(meCount, theyCount)){
+                                yourScore.innerText = 'You win‼'
+                            }else{
+                                yourScore.innerText = 'You Loose‼'
+                            }
+                        }
                     })
                 }
-                if(data<22){
+                if(data<=22){
                     theyCount = data;
                     theirScore.innerText = data;
                     console.log(data+"VRAIMENTRECU");
@@ -168,10 +196,19 @@ setTimeout(function(){
                 if(data === 'game?'){
                     if(confirm('Should we play a game?')){
                         conn.send('yes‼');
+                        $('.mg_module').show();
+                        $('.game_box').show();
+                    }
+                }
+                if(data === 'end‼'){
+                    $('.game_box').hide();
+                    if(!getWinner(meCount, theyCount)){
+                        yourScore.innerText = 'You win‼'
+                    }else{
+                        yourScore.innerText = 'You Loose‼'
                     }
                 }
                 if(data === 'yes‼'){
-                    console.log('yesOK')
                     conn.send(0);
                 }
                 if(data === 'ping'){

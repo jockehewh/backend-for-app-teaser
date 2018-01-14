@@ -88,7 +88,7 @@ nav{
     z-index: 22;
 }
 .mg_module{
-
+    display: none;
 }
 .todo_module{
 
