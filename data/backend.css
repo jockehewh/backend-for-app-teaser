@@ -91,7 +91,19 @@ nav{
     display: none;
 }
 .todo_module{
-
+    display:none;
+}
+.todo_list{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template: repeat(10, 1fr)/ repeat(1, 1fr);
+}
+.todo_list ul{
+    grid-row: 1/3;
+}
+.todo_list .input{
+    grid-row: 7/10;
 }
 .game_screen{
     display: grid;

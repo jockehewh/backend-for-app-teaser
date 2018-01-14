@@ -1,7 +1,7 @@
 let db = window.db = new Dexie('localmem')
 db.version(1).stores({
     friends: 'name',
-    todolist: 'note'
+    todolist: 'note, status'
 });
 db.open().catch(function(err){console.log(err)})
 console.log(db.friends)
