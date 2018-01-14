@@ -3,6 +3,14 @@
     max-width: 700px;
 }
 .is_main{}
+nav ul li{
+    display: inline;
+    list-style: none;
+    padding-right: 10px;
+}
+nav{
+    margin: 20px 0 0 0;
+}
 .data_module{}
 .status{
     width:20px;
@@ -12,20 +20,42 @@
     top:0;
     right:0;
 }
+.local_name{
+    background-color:black;
+    color: white;
+    position: absolute;
+    top:0;
+    left:0;
+}
 .peer_selector{}
 #distant_id{}
 #data_connect{}
 .files_element{
     display:none;
 }
-#sendFiles{}
+#sendFiles{
+    display:none;
+}
 .messagerie_text{
-    height:100vh;
+    height:90vh;
 }
 .messagerie_text div{
     height:80%;
+    overflow-y: scroll;
 }
-#messages{}
+#messages{
+    padding:0;
+    margin:0;
+    max-width:100%;
+}
+#messages li{
+    list-style:none;
+    max-width:100%;
+}
+#messages li a img{
+    max-width: 100%;
+    max-height:45vh;
+}
 .you{
     color:green;
 }
@@ -53,6 +83,9 @@
 .video{}
 .disconnect{
     display:none;
+    position: fixed;
+    bottom: 22px;
+    z-index: 22;
 }
 .mg_module{
 

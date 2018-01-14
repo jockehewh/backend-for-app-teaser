@@ -4,6 +4,7 @@ $(document).ready(function(){
     let dataConnect = $('#data_connect');
     let disconnect = $('.disconnect');
     let vStarter = $('#vStarter');
+    let gStarter = $('#gStarter');
     peer = window.peer;
 //////////////////****************ESTABLISH LOCAL DATABASE****************////////////////////
     db = window.db;
@@ -17,23 +18,13 @@ $(document).ready(function(){
     }).catch(function(err){
         console.log(err)
     });
-    var minigame = function (){
-        var gamebtn = document.querySelector('.game_btn');
-        var yourScore = document.querySelector('#yoScore');
-        var theirScore = document.querySelector('#tyScore');
-        var meCount = 0;
-        var theyCount = 0;
-        gamebtn.addEventListener('click',() => {
-            meCount++;
-            yourScore.innerText = meCount;
-        })
-        conn.send(meCount);
-    }
+    
 //////////////////****************ESTABLISH CONNECTION****************////////////////////
     dataConnect.click(function(){
         $('.disconnect').show();
         var distantId = $('#distant_id').val();
         var conn = peer.connect(distantId);
+        window.caller = conn;
         db.friends.add({name: distantId});
         //AJOUTER DATAS
         conn.on('open', function(){
@@ -81,6 +72,30 @@ $(document).ready(function(){
                     }
                 })
             })
+        gStarter.click(function(){
+            conn.send('game?');
+            conn.on('data', function(data){
+                if(data === 'yes‼'){
+                    conn.send('yes‼');
+                }
+                if(typeof data === 'number'){
+                    if(data === 0){
+                        conn.send(0);
+                        gamebtn.addEventListener('click',function(){
+                            meCount++;
+                            yourScore.innerText = meCount;
+                            conn.send(meCount);
+                        })
+                    }
+                    if(data <= 22){
+                        console.log(data+"RREEEECCUU")
+                        theyCount = data;
+                        theirScore.innerText = data;
+                    }
+                }
+                
+            })
+        })
     })
     
     
@@ -95,6 +110,14 @@ $(document).ready(function(){
         disconnect.hide();
     });
 })//DOM READY
+    var gamebtn = document.querySelector('.game_btn');
+    var yourScore = document.querySelector('#yoScore');
+    var theirScore = document.querySelector('#tyScore');
+    var meCount = 0;
+    var theyCount = 0;
+
+    
+
 function pseudoNetworkConditionSizedVideo(quality){
     navigator.getUserMedia({audio: true, video: quality}, function(stream){
         var distantId = $('#distant_id').val();
@@ -111,6 +134,7 @@ function pseudoNetworkConditionSizedVideo(quality){
 setTimeout(function(){
     peer.on('connection', function(conn){
         let distantPeer = conn.peer;
+        window.called = conn;
         let imgControler = new RegExp (/(\.jpeg|\.jpg|\.png|\.gif|\.bmp)/)
         conn.on('data', function(data){
             if (data.constructor === ArrayBuffer){
@@ -119,16 +143,37 @@ setTimeout(function(){
                 let img = document.createElement('img');
                 var li = document.createElement('li');
                 var a = document.createElement('a');
-                a.href = dataUrl;
+                a.download = dataUrl;
                 img.src = dataUrl;
                 a.appendChild(img)
                 li.appendChild(a);
                 $('#messages').append(li)
             }
-            if(data === 'number'){
-                
+            if(typeof data === 'number'){
+                if(data === 0){
+                    console.log('START A GAME')
+                    gamebtn.addEventListener('click',function(){
+                        meCount++;
+                        yourScore.innerText = meCount;
+                        conn.send(meCount);
+                    })
+                }
+                if(data<22){
+                    theyCount = data;
+                    theirScore.innerText = data;
+                    console.log(data+"VRAIMENTRECU");
+                }
             }
             if(typeof data === 'string'){
+                if(data === 'game?'){
+                    if(confirm('Should we play a game?')){
+                        conn.send('yes‼');
+                    }
+                }
+                if(data === 'yes‼'){
+                    console.log('yesOK')
+                    conn.send(0);
+                }
                 if(data === 'ping'){
                     conn.send('pong');
                 }
