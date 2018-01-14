@@ -1,6 +1,5 @@
 * {margin: 0; padding:0; user-select: none;}
-.body{
-    max-width: 700px;
+body{
     background: linear-gradient(to top, #3333cc 13%, #66ccff 100%);
 }
 .is_main{}

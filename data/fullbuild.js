@@ -117,6 +117,9 @@ $(document).ready(function(){
                     $('.game_box').hide();
                     setTimeout(function(){
                         $('.mg_module').hide();
+                        meCount = theyCount = 0;
+                        yourScore.innerText = 0;
+                        theirScore.innerText = 0;
                     },2000)
                     if(!getWinner(meCount, theyCount)){
                         yourScore.innerText = 'You win‼'
@@ -136,6 +139,9 @@ $(document).ready(function(){
                                 $('.game_box').hide();
                                 setTimeout(function(){
                                     $('.mg_module').hide();
+                                    meCount = theyCount = 0;
+                                    yourScore.innerText = 0;
+                                    theirScore.innerText = 0;
                                 },2000)
                                 if(!getWinner(meCount, theyCount)){
                                     yourScore.innerText = 'You win‼'
@@ -219,6 +225,9 @@ setTimeout(function(){
                             $('.game_box').hide();
                             setTimeout(function(){
                                 $('.mg_module').hide();
+                                meCount = theyCount = 0;
+                                yourScore.innerText = 0;
+                                theirScore.innerText = 0;
                             },2000)
                             if(!getWinner(meCount, theyCount)){
                                 yourScore.innerText = 'You win‼'
@@ -245,6 +254,9 @@ setTimeout(function(){
                     $('.game_box').hide();
                     setTimeout(function(){
                         $('.mg_module').hide();
+                        meCount = theyCount = 0;
+                        yourScore.innerText = 0;
+                        theirScore.innerText = 0;
                     },2000)
                     if(!getWinner(meCount, theyCount)){
                         yourScore.innerText = 'You win‼'
