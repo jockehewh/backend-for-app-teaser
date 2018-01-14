@@ -1,8 +1,12 @@
 * {margin: 0; padding:0; user-select: none;}
 .body{
     max-width: 700px;
+    background: linear-gradient(to top, #3333cc 13%, #66ccff 100%);
 }
 .is_main{}
+.is_main nav{
+    display: none;
+}
 nav ul li{
     display: inline;
     list-style: none;
@@ -27,7 +31,11 @@ nav{
     top:0;
     left:0;
 }
-.peer_selector{}
+.peer_selector{
+    position: relative;
+    top: 40vh;
+    text-align: center;
+}
 #distant_id{}
 #data_connect{}
 .files_element{
@@ -42,6 +50,10 @@ nav{
 .messagerie_text div{
     height:80%;
     overflow-y: scroll;
+    width: 70vw;
+}
+.messagerie_text button{
+    margin: 20px 20px 0 0;
 }
 #messages{
     padding:0;
@@ -66,18 +78,22 @@ nav{
 #send{}
 #vStarter{}
 .my_video{
-    max-width:150px;
-    max-height:200px;
-    position: fixed;
-    top: 400px;
-    left:50px;
+    height: 20vh;
+    position: absolute;
+    top: 35vh;
+    right: 0;
 }
 .their_video{
-    max-width:720px;
-    max-height:1280px;
-    position: fixed;
-    top: 50px;
-    left:0;
+    position: absolute;
+    top: 10vh;
+    right: 0;
+    height: 25vh;
+}
+.stop_video{
+    position: absolute;
+    top: 55vh;
+    right: 0;
+    display: none;
 }
 .video_module{}
 .video{}
@@ -89,6 +105,12 @@ nav{
 }
 .mg_module{
     display: none;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(to top, #66ccff 0%, #3333cc 62%);
+    opacity: 1;
 }
 .todo_module{
     display:none;

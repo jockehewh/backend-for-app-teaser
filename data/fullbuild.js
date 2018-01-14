@@ -21,6 +21,7 @@ $(document).ready(function(){
     
 //////////////////****************ESTABLISH CONNECTION****************////////////////////
     dataConnect.click(function(){
+        $('.is_main nav').show();
         $('.disconnect').show();
         var distantId = $('#distant_id').val();
         var conn = peer.connect(distantId);
@@ -38,6 +39,7 @@ $(document).ready(function(){
                 li.classList.add('you');
                 li.innerHTML = `<p>you: ${message}</p>`
                 $('#messages').append(li);
+                $('#text').val('');
             })
             $('#fileSend').click(function(){
                 fileBtn.click();
@@ -53,6 +55,22 @@ $(document).ready(function(){
             var sdHigh = {width:360, height:480}
             var sd = {width:144, height:176}
             $('.video_module').show();
+            $('.stop_video').show();
+            $('.stop_video').click(function(){
+                if(window.localStream){
+                    URL.revokeObjectURL(window.localStream)
+                    delete(window.localStream);
+                    $('.my_video').remove();
+                    conn.send('close video')
+                }
+                if(window.streamUrl){
+                    URL.revokeObjectURL(window.streamUrl)
+                    delete(window.streamUrl);
+                    $('.their_video').remove();
+                }
+                $('.stop_video').hide();
+                $('#vStarter').show();
+            })
             vStarter.hide();
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
             console.log(peer.peer)
@@ -70,6 +88,21 @@ $(document).ready(function(){
                             pseudoNetworkConditionSizedVideo(fullhd)
                         }
                     }
+                    if(typeof data === 'string' && data === 'close video'){
+                        if(window.localStream){
+                            URL.revokeObjectURL(window.localStream)
+                            delete(window.localStream);
+                            $('.my_video').remove();
+                            conn.send('close video')
+                        }
+                        if(window.streamUrl){
+                            URL.revokeObjectURL(window.streamUrl)
+                            delete(window.streamUrl);
+                            $('.their_video').remove();
+                        }
+                        $('.stop_video').hide();
+                        $('#vStarter').show();
+                    }
                 })
             })
         gStarter.click(function(){
@@ -82,6 +115,9 @@ $(document).ready(function(){
                 }
                 if(data === 'end‼'){
                     $('.game_box').hide();
+                    setTimeout(function(){
+                        $('.mg_module').hide();
+                    },2000)
                     if(!getWinner(meCount, theyCount)){
                         yourScore.innerText = 'You win‼'
                     }else{
@@ -91,13 +127,16 @@ $(document).ready(function(){
                 if(typeof data === 'number'){
                     if(data === 0){
                         conn.send(0);
-                        gamebtn.addEventListener('click',function(){
+                        gamebtn.addEventListener('click', function(){
                             meCount++;
                             yourScore.innerText = meCount;
                             conn.send(meCount);
                             if(meCount === 22){
                                 conn.send('end‼')
                                 $('.game_box').hide();
+                                setTimeout(function(){
+                                    $('.mg_module').hide();
+                                },2000)
                                 if(!getWinner(meCount, theyCount)){
                                     yourScore.innerText = 'You win‼'
                                 }else{
@@ -122,10 +161,10 @@ $(document).ready(function(){
         $('.peer_selector').show();
         $('.files_element').hide();
         $('.video_module').hide();
-        $('video').remove();
         window.URL.revokeObjectURL(window.localStream);
         window.URL.revokeObjectURL(window.streamUrl);
         disconnect.hide();
+        $('.is_main nav').hide();
     });
 })//DOM READY
     var gamebtn = document.querySelector('.game_btn');
@@ -178,6 +217,9 @@ setTimeout(function(){
                         if(meCount === 22){
                             conn.send('end‼')
                             $('.game_box').hide();
+                            setTimeout(function(){
+                                $('.mg_module').hide();
+                            },2000)
                             if(!getWinner(meCount, theyCount)){
                                 yourScore.innerText = 'You win‼'
                             }else{
@@ -189,7 +231,6 @@ setTimeout(function(){
                 if(data<=22){
                     theyCount = data;
                     theirScore.innerText = data;
-                    console.log(data+"VRAIMENTRECU");
                 }
             }
             if(typeof data === 'string'){
@@ -202,6 +243,9 @@ setTimeout(function(){
                 }
                 if(data === 'end‼'){
                     $('.game_box').hide();
+                    setTimeout(function(){
+                        $('.mg_module').hide();
+                    },2000)
                     if(!getWinner(meCount, theyCount)){
                         yourScore.innerText = 'You win‼'
                     }else{
@@ -213,6 +257,21 @@ setTimeout(function(){
                 }
                 if(data === 'ping'){
                     conn.send('pong');
+                }
+                if(data === 'close video'){
+                    if(window.localStream){
+                        URL.revokeObjectURL(window.localStream)
+                        delete(window.localStream);
+                        $('.my_video').remove();
+                        conn.send('close video')
+                    }
+                    if(window.streamUrl){
+                        URL.revokeObjectURL(window.streamUrl)
+                        delete(window.streamUrl);
+                        $('.their_video').remove();
+                    }
+                    $('.stop_video').hide();
+                    $('#vStarter').show();
                 }
                 if(imgControler.test(data)){
                     window.fileName = data;
@@ -227,6 +286,7 @@ setTimeout(function(){
     });
     peer.on('call', function(conn){
         if(confirm('accept incomming call?')){
+            $('.stop_video').show();
             conn.answer(window.localStream);
             conn.on('stream', function(stream){
                 let video = document.createElement('video');
@@ -236,5 +296,38 @@ setTimeout(function(){
                 $('.video').append(video);
                 })
         }
+        $('.stop_video').click(function(){
+            if(window.localStream){
+                URL.revokeObjectURL(window.localStream)
+                delete(window.localStream);
+                $('.my_video').remove();
+                conn.send('close video')
+            }
+            if(window.streamUrl){
+                URL.revokeObjectURL(window.streamUrl)
+                delete(window.streamUrl);
+                $('.their_video').remove();
+            }
+            $('.stop_video').hide();
+            $('#vStarter').show();
+        })
+        conn.on('data', function(data){
+            if(typeof data === 'string' && data === 'close video'){
+                if(window.localStream){
+                    URL.revokeObjectURL(window.localStream)
+                    delete(window.localStream);
+                    $('.my_video').remove();
+                    conn.send('close video')
+                }
+                if(window.streamUrl){
+                    URL.revokeObjectURL(window.streamUrl)
+                    delete(window.streamUrl);
+                    $('.their_video').remove();
+                    conn.send('close video')
+                }
+                $('.stop_video').hide();
+                $('#vStarter').show();
+            }
+        })
     })
     },1200);
