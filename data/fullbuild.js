@@ -160,8 +160,6 @@ $(document).ready(function(){
             })
         })
     })
-    
-    
     disconnect.click(function(){
         peer.disconnect();
         $('.peer_selector').show();
@@ -172,6 +170,19 @@ $(document).ready(function(){
         disconnect.hide();
         $('.is_main nav').hide();
     });
+
+//SERVICE WORKER
+if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+        navigator.serviceWorker.register('/app-teaser-sw.js').then((registration)=>{
+            console.log('Service Worker ok');
+        }, function(err){
+            console.log(err)
+        })
+    })
+}
+
+//SERVICE WORKER
 })//DOM READY
     var gamebtn = document.querySelector('.game_btn');
     var yourScore = document.querySelector('#yoScore');

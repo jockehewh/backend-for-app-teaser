@@ -1,0 +1,15 @@
+{
+    "short_name": "App & Teaser",
+    "name": "An App & Teaser app",
+    "display": "standalone",
+    "background_color": "#3366ff",
+    "theme_color": "#3366ff",
+    "icons": [
+      {
+        "src": "launcher-icon-2x.png",
+        "type": "image/png",
+        "sizes": "96x96"
+      }
+    ],
+    "start_url": "/?utm_source=homescreen"
+  }

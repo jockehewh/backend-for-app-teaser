@@ -20,6 +20,7 @@ httpServer.listen(function(){
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <meta http-equiv="X-UA-Compatible" content="ie=edge">
                 <link rel="stylesheet" href="./backend.css">
+                <link rel="manifest" href="/manifest.json">
                 <script src="./scripts/zepto.min.js"></script>
                 <script src="./scripts/peer.min.js"></script>
                 <script src="./scripts/dexie.js"></script>
