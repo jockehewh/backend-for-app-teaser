@@ -15,18 +15,26 @@ $(document).ready(function(){
         option.setAttribute('value', user.name);
         option.innerText = user.name;
         $('select').append(option);
+        
     }).catch(function(err){
         console.log(err)
     });
-    
 //////////////////****************ESTABLISH CONNECTION****************////////////////////
     dataConnect.click(function(){
         $('.is_main nav').show();
         $('.disconnect').show();
-        var distantId = $('#distant_id').val();
+        var distantId;
         var conn = peer.connect(distantId);
+        var friendsListId = document.querySelector('#friendsList');
+        if (friendsListId.options[friendsListId.selectedIndex]){
+            distantId = friendsListId.options[friendsListId.selectedIndex].value;
+            conn = peer.connect(distantId);
+        }else{
+            distantId = $('#distant_id').val();
+            db.friends.add({name: distantId});
+            conn = peer.connect(distantId);
+        }
         window.caller = conn;
-        db.friends.add({name: distantId});
         //AJOUTER DATAS
         conn.on('open', function(){
             $('.peer_selector').hide();
@@ -57,15 +65,24 @@ $(document).ready(function(){
             $('.video_module').show();
             $('.stop_video').show();
             $('.stop_video').click(function(){
-                if(window.localStream){
-                    URL.revokeObjectURL(window.localStream)
-                    delete(window.localStream);
-                    $('.my_video').remove();
-                    conn.send('close video')
+                try{
+                    document.querySelectorAll('video').forEach(function(mediaTrack){
+                        if(mediaTrack.srcObject !== 'null'){
+                            localMST = mediaTrack.srcObject.getTracks()
+                            localMST.forEach(function(track){
+                                track.strop();
+                            })
+                        }
+                    })
+                    conn.send('close video');
                 }
-                if(window.streamUrl){
-                    URL.revokeObjectURL(window.streamUrl)
+                catch(err){
+                    if(window.localStream || window.streamUrl){conn.send('close video')}
+                    URL.revokeObjectURL(window.localStream);
+                    URL.revokeObjectURL(window.streamUrl);
+                    delete(window.localStream);
                     delete(window.streamUrl);
+                    $('.my_video').remove();
                     $('.their_video').remove();
                 }
                 $('.stop_video').hide();
