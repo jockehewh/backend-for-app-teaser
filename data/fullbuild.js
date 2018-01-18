@@ -89,15 +89,24 @@ $(document).ready(function(){
                         }
                     }
                     if(typeof data === 'string' && data === 'close video'){
-                        if(window.localStream){
-                            URL.revokeObjectURL(window.localStream)
-                            delete(window.localStream);
-                            $('.my_video').remove();
-                            conn.send('close video')
+                        try{
+                            document.querySelectorAll('video').forEach(function(mediaTrack){
+                                if(mediaTrack.srcObject !== 'null'){
+                                    localMST = mediaTrack.srcObject.getTracks()
+                                    localMST.forEach(function(track){
+                                        track.strop();
+                                    })
+                                }
+                            })
+                            conn.send('close video');
                         }
-                        if(window.streamUrl){
-                            URL.revokeObjectURL(window.streamUrl)
+                        catch(err){
+                            if(window.localStream || window.streamUrl){conn.send('close video')}
+                            URL.revokeObjectURL(window.localStream);
+                            URL.revokeObjectURL(window.streamUrl);
+                            delete(window.localStream);
                             delete(window.streamUrl);
+                            $('.my_video').remove();
                             $('.their_video').remove();
                         }
                         $('.stop_video').hide();
@@ -198,7 +207,12 @@ function pseudoNetworkConditionSizedVideo(quality){
     navigator.getUserMedia({audio: true, video: quality}, function(stream){
         var distantId = $('#distant_id').val();
         let video = document.createElement('video');
-        video.src = URL.createObjectURL(stream);
+        try{
+            video.srcObject = stream;
+        }
+        catch (err){
+            video.src = URL.createObjectURL(stream);
+        }
         video.classList.add('my_video');
         window.localStream = stream;
         let videoCall = peer.call(distantId, window.localStream);
@@ -282,16 +296,25 @@ setTimeout(function(){
                     conn.send('pong');
                 }
                 if(data === 'close video'){
-                    if(window.localStream){
-                        URL.revokeObjectURL(window.localStream)
-                        delete(window.localStream);
-                        $('.my_video').remove();
-                        conn.send('close video')
+                    try{
+                        document.querySelectorAll('video').forEach(function(mediaTrack){
+                            if(mediaTrack.srcObject !== 'null'){
+                                localMST = mediaTrack.srcObject.getTracks()
+                                localMST.forEach(function(track){
+                                    track.strop();
+                                })
+                            }
+                        })
+                        conn.send('close video');
                     }
-                    if(window.streamUrl){
-                        URL.revokeObjectURL(window.streamUrl)
+                    catch(err){
+                        URL.revokeObjectURL(window.localStream);
+                        URL.revokeObjectURL(window.streamUrl);
+                        delete(window.localStream);
                         delete(window.streamUrl);
+                        $('.my_video').remove();
                         $('.their_video').remove();
+                        conn.send('close video')
                     }
                     $('.stop_video').hide();
                     $('#vStarter').show();
@@ -313,38 +336,60 @@ setTimeout(function(){
             conn.answer(window.localStream);
             conn.on('stream', function(stream){
                 let video = document.createElement('video');
-                window.streamUrl = URL.createObjectURL(stream);
+                try{
+                    video.srcObject = stream;
+                }
+                catch(err){
+                    window.streamUrl = URL.createObjectURL(stream);
+                }
                 video.src = window.streamUrl;
                 video.classList.add('their_video')
                 $('.video').append(video);
                 })
         }
         $('.stop_video').click(function(){
-            if(window.localStream){
-                URL.revokeObjectURL(window.localStream)
-                delete(window.localStream);
-                $('.my_video').remove();
-                conn.send('close video')
+            try{
+                document.querySelectorAll('video').forEach(function(mediaTrack){
+                    if(mediaTrack.srcObject !== 'null'){
+                        localMST = mediaTrack.srcObject.getTracks()
+                        localMST.forEach(function(track){
+                            track.strop();
+                        })
+                    }
+                })
+                conn.send('close video');
             }
-            if(window.streamUrl){
-                URL.revokeObjectURL(window.streamUrl)
+            catch(err){
+                URL.revokeObjectURL(window.localStream);
+                URL.revokeObjectURL(window.streamUrl);
+                delete(window.localStream);
                 delete(window.streamUrl);
+                $('.my_video').remove();
                 $('.their_video').remove();
+                conn.send('close video')
             }
             $('.stop_video').hide();
             $('#vStarter').show();
         })
         conn.on('data', function(data){
             if(typeof data === 'string' && data === 'close video'){
-                if(window.localStream){
-                    URL.revokeObjectURL(window.localStream)
-                    delete(window.localStream);
-                    $('.my_video').remove();
-                    conn.send('close video')
+                try{
+                    document.querySelectorAll('video').forEach(function(mediaTrack){
+                        if(mediaTrack.srcObject !== 'null'){
+                            localMST = mediaTrack.srcObject.getTracks()
+                            localMST.forEach(function(track){
+                                track.strop();
+                            })
+                        }
+                    })
+                    conn.send('close video');
                 }
-                if(window.streamUrl){
-                    URL.revokeObjectURL(window.streamUrl)
+                catch(err){
+                    URL.revokeObjectURL(window.localStream);
+                    URL.revokeObjectURL(window.streamUrl);
+                    delete(window.localStream);
                     delete(window.streamUrl);
+                    $('.my_video').remove();
                     $('.their_video').remove();
                     conn.send('close video')
                 }
