@@ -28,6 +28,12 @@ selfId.first((item)=>{
     .catch((err)=>{
         console.log(err)
     })
+//TEST USERS
+db.friends.add({name: 'user1'})
+    db.friends.add({name: 'user2'})
+    db.friends.add({name: 'user3'})
+    db.friends.add({name: 'user4'})
+//TEST USERS
 
 function doNothing(e){
     e.preventDefault();

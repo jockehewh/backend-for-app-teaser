@@ -10,15 +10,22 @@ $(document).ready(function(){
     db = window.db;
     collection = window.collection = db.friends.toCollection();
 
-    collection.each(function(user){
-        var option = document.createElement('option');
-        option.setAttribute('value', user.name);
-        option.innerText = user.name;
-        $('select').append(option);
-        
-    }).catch(function(err){
-        console.log(err)
-    });
+    setTimeout(function(){
+        collection.each(function(user){
+            var option = document.createElement('option');
+            if(user.name === peer.id){
+                option.setAttribute('value', '')
+                option.innerText = '';
+            }else{
+                option.setAttribute('value', user.name);
+                option.innerText = user.name;
+            }
+            $('select').append(option);
+        }).catch(function(err){
+            console.log(err)
+        })
+    },1000)
+    
 //////////////////****************ESTABLISH CONNECTION****************////////////////////
     dataConnect.click(function(){
         $('.is_main nav').show();
@@ -26,7 +33,7 @@ $(document).ready(function(){
         var distantId;
         var conn = peer.connect(distantId);
         var friendsListId = document.querySelector('#friendsList');
-        if (friendsListId.options[friendsListId.selectedIndex]){
+        if (friendsListId.options[friendsListId.selectedIndex].value !== ''){
             distantId = friendsListId.options[friendsListId.selectedIndex].value;
             conn = peer.connect(distantId);
         }else{
