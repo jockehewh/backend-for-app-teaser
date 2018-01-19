@@ -60,9 +60,8 @@ $(document).ready(function(){
                 fileBtn.click();
             })
             fileBtn.change(function(){
-                console.log(this.files[0])
-                //$('.files_element').append(`<p>${this.files[0].name}, size: ${this.files[0].size/1000} Ko</p>`)
-                conn.send(this.files[0])
+                var dataObj = {filename: this.files[0].name, file: this.files[0]}
+                conn.send(dataObj)
             })
         })
         vStarter.click(function(){
@@ -262,6 +261,32 @@ setTimeout(function(){
                 a.appendChild(img)
                 li.appendChild(a);
                 $('#messages').append(li)
+            }
+            if(typeof data === 'object'){
+                console.log(data)
+                if(imgControler.test(data.filename)){
+                    var blob = new Blob([data.file])
+                    var dataUrl = URL.createObjectURL(blob)
+                    let img = document.createElement('img');
+                    var li = document.createElement('li');
+                    var a = document.createElement('a');
+                    a.download = data.filename;
+                    a.href = dataUrl;
+                    img.src = dataUrl;
+                    a.appendChild(img)
+                    li.appendChild(a);
+                    $('#messages').append(li)
+                }else{
+                    var blob = new Blob([data.file])
+                    var dataUrl = URL.createObjectURL(blob)
+                    var li = document.createElement('li');
+                    var a = document.createElement('a');
+                    a.innerText = data.filename;
+                    a.href = dataUrl;
+                    a.download = data.filename;
+                    li.appendChild(a);
+                    $('#messages').append(li);
+                }
             }
             if(typeof data === 'number'){
                 if(data === 0){
