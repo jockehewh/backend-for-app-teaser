@@ -113,6 +113,17 @@ nav{
 }
 .todo_module{
     display:none;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(to top, #66ccff 0%, #3333cc 62%);
+    opacity: 1;
+}
+.close_todo{
+    position: fixed;
+    top: 0;
+    right: 0;
 }
 .todo_list{
     height: 100%;
