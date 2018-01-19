@@ -250,18 +250,6 @@ setTimeout(function(){
         window.called = conn;
         let imgControler = new RegExp (/(\.jpeg|\.jpg|\.png|\.gif|\.bmp)/)
         conn.on('data', function(data){
-            if (data.constructor === ArrayBuffer){
-                var bloeb = new Blob([data]);
-                var dataUrl = URL.createObjectURL(bloeb)
-                let img = document.createElement('img');
-                var li = document.createElement('li');
-                var a = document.createElement('a');
-                a.download = dataUrl;
-                img.src = dataUrl;
-                a.appendChild(img)
-                li.appendChild(a);
-                $('#messages').append(li)
-            }
             if(typeof data === 'object'){
                 console.log(data)
                 if(imgControler.test(data.filename)){
