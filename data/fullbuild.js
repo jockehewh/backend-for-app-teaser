@@ -251,7 +251,6 @@ setTimeout(function(){
         let imgControler = new RegExp (/(\.jpeg|\.jpg|\.png|\.gif|\.bmp)/)
         conn.on('data', function(data){
             if(typeof data === 'object'){
-                console.log(data)
                 if(imgControler.test(data.filename)){
                     var blob = new Blob([data.file])
                     var dataUrl = URL.createObjectURL(blob)
