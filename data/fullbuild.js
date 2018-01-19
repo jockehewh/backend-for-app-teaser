@@ -9,7 +9,12 @@ $(document).ready(function(){
 //////////////////****************ESTABLISH LOCAL DATABASE****************////////////////////
     db = window.db;
     collection = window.collection = db.friends.toCollection();
-
+    $('.open_todo').on('click', function(){
+        $('.todo_module').show();
+    })
+    $('.close_todo').on('click', function(){
+        $('.todo_module').hide();
+    })
     setTimeout(function(){
         collection.each(function(user){
             var option = document.createElement('option');
