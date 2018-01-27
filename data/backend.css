@@ -126,7 +126,10 @@ nav{
     right: 0;
 }
 .open_todo{
-    
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }
 .todo_list{
     height: 100%;

@@ -6,15 +6,27 @@ $(document).ready(function(){
     let vStarter = $('#vStarter');
     let gStarter = $('#gStarter');
     peer = window.peer;
-//////////////////****************ESTABLISH LOCAL DATABASE****************////////////////////
-    db = window.db;
-    collection = window.collection = db.friends.toCollection();
+//////////////////****************Navigation****************////////////////////
     $('.open_todo').on('click', function(){
         $('.todo_module').show();
     })
     $('.close_todo').on('click', function(){
         $('.todo_module').hide();
     })
+    
+    $('.is_main nav ul').click(function(e){
+        console.log(e.target.dataset.module)
+        document.querySelectorAll('div[class*=_module]').forEach(function(module){
+            if(module.dataset.module === e.target.dataset.module){
+                module.style.display = 'block'
+            }else{
+                module.style.display = 'none'
+            }
+        })
+    })
+    //GATHER FRIENDS LIST
+    db = window.db;
+    collection = window.collection = db.friends.toCollection();
     setTimeout(function(){
         collection.each(function(user){
             var option = document.createElement('option');
@@ -30,11 +42,11 @@ $(document).ready(function(){
             console.log(err)
         })
     },1000)
-    
 //////////////////****************ESTABLISH CONNECTION****************////////////////////
     dataConnect.click(function(){
         $('.is_main nav').show();
         $('.disconnect').show();
+        $('.open_todo').show();
         var distantId;
         var conn = peer.connect(distantId);
         var friendsListId = document.querySelector('#friendsList');
